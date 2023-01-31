@@ -19,8 +19,11 @@ public class OpenAiApiClient {
 		DALL_E, GPT_3;
 	}
 
-	@Value("${openai.api_key}")
+	@Value("${OPENAI_API_KEY}")
 	private String openaiApiKey;
+	public String getApiKey() {
+		return openaiApiKey;
+	}
 
 	private final HttpClient client = HttpClient.newHttpClient();
 
