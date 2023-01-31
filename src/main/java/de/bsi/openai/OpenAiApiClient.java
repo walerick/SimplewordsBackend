@@ -21,9 +21,9 @@ public class OpenAiApiClient {
 
 	@Value("${OPENAI_API_KEY}")
 	private String openaiApiKey;
-	public String getApiKey() {
-		return openaiApiKey;
-	}
+//	public String getApiKey() {
+//		return openaiApiKey;
+//	}
 
 	private final HttpClient client = HttpClient.newHttpClient();
 

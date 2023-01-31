@@ -39,18 +39,18 @@ public class ChatGptController {
 		return MAIN_PAGE;
 	}
 
-//	@CrossOrigin
-//	@PostMapping(path = "/")
-//	public String chat(Model model, @ModelAttribute FormInputDTO dto) {
-//		try {
-//			model.addAttribute("request", dto.prompt());
-//			model.addAttribute("response", chatWithGpt3(dto.prompt()));
-//
-//		} catch (Exception e) {
-//			model.addAttribute("response", "Error in communication with OpenAI ChatGPT API.");
-//		}
-//		return MAIN_PAGE;
-//	}
+	@CrossOrigin
+	@PostMapping(path = "/")
+	public String chat(Model model, @ModelAttribute FormInputDTO dto) {
+		try {
+			model.addAttribute("request", dto.prompt());
+			model.addAttribute("response", chatWithGpt3(dto.prompt()));
+
+		} catch (Exception e) {
+			model.addAttribute("response", "Error in communication with OpenAI ChatGPT API.");
+		}
+		return MAIN_PAGE;
+	}
 	@CrossOrigin
 	@PostMapping(path = "/vi/api/prompt")
 	public ResponseEntity<String> gpt(@RequestBody Map<String, String> request) {
