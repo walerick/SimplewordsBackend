@@ -51,7 +51,7 @@ public class ChatGptController {
 //		}
 //		return MAIN_PAGE;
 //	}
-	@CrossOrigin
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping(path = "/vi/api/prompt")
 	public ResponseEntity<String> gpt(@RequestBody Map<String, String> request) {
 		try {
