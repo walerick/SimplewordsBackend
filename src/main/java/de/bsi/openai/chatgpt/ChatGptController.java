@@ -1,7 +1,6 @@
 package de.bsi.openai.chatgpt;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,6 @@ import java.util.Map;
 public class ChatGptController {
 	
 	private static final String MAIN_PAGE = "index";
-	private static final String ALLOWED_ORIGIN = "http://localhost:3000";
 	
 	@Autowired
 	private ObjectMapper jsonMapper;
@@ -34,7 +32,7 @@ public class ChatGptController {
 		var completionResponse = jsonMapper.readValue(responseBody, CompletionResponse.class);
 		return completionResponse.firstAnswer().orElseThrow();
 	}
-	@CrossOrigin
+	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping(path = "/")
 	public String index() {
 
@@ -46,11 +44,13 @@ public class ChatGptController {
 	public ResponseEntity<String> gpt(@RequestBody Map<String, String> request) {
 		try {
 			String response = chatWithGpt3(request.get("prompt"));
-			HttpHeaders headers = new HttpHeaders();
-			headers.add("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
-			return new ResponseEntity<>(response, headers, HttpStatus.OK);
+			return ResponseEntity.ok()
+					.header("Access-Control-Allow-Origin", "*")
+					.body(response);
 		} catch (Exception e) {
-			return new ResponseEntity<>("Error in communication with OpenAI.", HttpStatus.INTERNAL_SERVER_ERROR);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.header("Access-Control-Allow-Origin", "*")
+					.body("Error in communication with OpenAI.");
 		}
 	}
 }
