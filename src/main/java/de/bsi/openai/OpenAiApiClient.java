@@ -20,7 +20,7 @@ public class OpenAiApiClient {
 		DALL_E, GPT_3;
 	}
 
-	@Value("${OPENAI_API_KEY}")
+	@Value("${openai.api_key}")
 	private String openaiApiKey;
 //	public String getApiKey() {
 //		return openaiApiKey;
