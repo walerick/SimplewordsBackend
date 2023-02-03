@@ -15,6 +15,8 @@ import de.bsi.openai.OpenAiApiClient.OpenAiService;
 
 import java.util.Map;
 
+
+@RequestMapping("/")
 @Controller
 public class ChatGptController {
 	
@@ -32,14 +34,8 @@ public class ChatGptController {
 		var completionResponse = jsonMapper.readValue(responseBody, CompletionResponse.class);
 		return completionResponse.firstAnswer().orElseThrow();
 	}
+
 	@CrossOrigin(origins = "http://localhost:3000")
-	@GetMapping(path = "/")
-	public String index() {
-
-		return MAIN_PAGE;
-	}
-
-	@CrossOrigin
 	@PostMapping(path = "/v1/api/prompt")
 	public ResponseEntity<String> gpt(@RequestBody Map<String, String> request) {
 		try {
